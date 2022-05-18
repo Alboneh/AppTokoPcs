@@ -17,7 +17,15 @@ class M_produk extends CI_Model {
         $query = $this->db->get();
 		return $query->result_array();
 	}
-
+	public function getProdukStok()
+	{
+		$this->db->select('produk.id,produk.admin_id,admin.nama as nama_admin,produk.nama,produk.stok,produk.harga');
+		$this->db->from('produk');
+		$this->db->where('produk.stok > 0');
+		$this->db->join('admin','admin.id = produk.admin_id');
+        $query = $this->db->get();
+		return $query->result_array();
+	}
 	public function insertProduk($data)
 	{
 		$this->db->insert('produk', $data);

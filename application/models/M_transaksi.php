@@ -11,7 +11,7 @@ class M_transaksi extends CI_Model {
 
     public function getTransaksi()
 	{
-		$this->db->select('transaksi.id,transaksi.total,transaksi.tanggal,admin.nama');
+		$this->db->select('transaksi.id,transaksi.total,transaksi.tanggal,admin.nama,admin.id AS admin_id');
 		$this->db->from('transaksi');
 		$this->db->join('admin','admin.id = transaksi.admin_id');
         $query = $this->db->get();
@@ -20,7 +20,7 @@ class M_transaksi extends CI_Model {
 
 	public function getTransaksiBulanIni()
 	{
-		$this->db->select('transaksi.id,transaksi.total,transaksi.tanggal,admin.nama');
+		$this->db->select('transaksi.id,transaksi.total,transaksi.tanggal,admin.nama,admin.id AS admin_id');
 		$this->db->from('transaksi');
 		$this->db->join('admin','admin.id = transaksi.admin_id');
 		$this->db->where('month(tanggal)', date('m'));

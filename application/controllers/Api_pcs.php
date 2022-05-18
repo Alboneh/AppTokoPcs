@@ -218,8 +218,19 @@ class Api_pcs extends REST_Controller {
         );
         $this->response($data_json,REST_Controller::HTTP_OK);
     }
+    public function produkStok_get(){
+        $this->cekToken();
+        $result = $this -> M_produk -> getProdukStok();
 
-
+        $data_json = array(
+            "success" => true,
+            "message" => "Data found",
+            "data"  => array(
+                "produk" => $result
+            )
+        );
+        $this->response($data_json,REST_Controller::HTTP_OK);
+    }
     public function produk_post(){
         // Pastikan sudah login
         $this->cekToken();
@@ -377,11 +388,15 @@ class Api_pcs extends REST_Controller {
         $this->cekToken();
 
         $result = $this -> M_transaksi -> getTransaksi();
-
+        $total = 0;
+        foreach ($result as $row) {
+            $total = $total+$row['total'];
+        }
         $data_json = array(
             "success" => true,
             "message" => "Data found",
             "data"  => array(
+                "total" => $total,
                 "transaksi" => $result
             )
         );
@@ -393,10 +408,15 @@ class Api_pcs extends REST_Controller {
 
         $result = $this -> M_transaksi -> getTransaksiBulanIni();
 
+        $total = 0;
+        foreach ($result as $row) {
+            $total = $total+$row['total'];
+        }
         $data_json = array(
             "success" => true,
             "message" => "Data found",
             "data"  => array(
+                "total" => $total,
                 "transaksi" => $result
             )
         );
